@@ -8,7 +8,7 @@
 #define GRAVITY_SPEED 0.8
 #define MAX_FALL_SPEED 10
 #define PLAYER_SPEED 8
-#define PLAYER_JUMP_VAL 15
+#define PLAYER_JUMP_VAL 20
 
 class mainObject : public baseFunction {
 public:
@@ -54,7 +54,7 @@ private:
 	int map_x_;
 	int map_y_;
 
-
+	int comeback_time_;
 
 
 

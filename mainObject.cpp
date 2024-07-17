@@ -20,7 +20,7 @@ mainObject::mainObject() {
     map_x_ = 0;
     map_y_ = 0;
 
-
+    comeback_time_ = 0;
 }
 
 mainObject::~mainObject() {
@@ -94,9 +94,20 @@ void mainObject::Show(SDL_Renderer* des) {
     	}
     	else {
         	LoadImg("img/soldier_right.png", des);
-    	}
+	}
 
 	}
+	else{
+		if (status_ == WALK_LEFT) {
+        	LoadImg("img/jump_left.png", des);
+    	}
+    	else {
+        	LoadImg("img/jump_right.png", des);
+    	}
+	}
+
+
+
 
 
 
@@ -179,34 +190,53 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 
 void mainObject::DoPlayer(Map& map_data) {
 
-    x_val_ = 0;
+    if(comeback_time_ ==0) {
+		x_val_ = 0;
 
-    if (input_type_.left_ == 1) {
-        x_val_ -= PLAYER_SPEED;
-    }
-    else if (input_type_.right_ == 1) {
-        x_val_ += PLAYER_SPEED;
-    }
+    	if (input_type_.left_ == 1) {
+        	x_val_ -= PLAYER_SPEED;
+    	}
+    	else if (input_type_.right_ == 1) {
+        	x_val_ += PLAYER_SPEED;
+    	}
 
-    y_val_ += 0.8;
-    if (y_val_ >= MAX_FALL_SPEED) {
-        y_val_ = MAX_FALL_SPEED;
-    }
+    	y_val_ += 0.8;
+    	if (y_val_ >= MAX_FALL_SPEED) {
+        	y_val_ = MAX_FALL_SPEED;
+    	}
 
-    if (input_type_.up_ == 1) {
-		if(onGround)
-		{
-			y_val_ = - PLAYER_JUMP_VAL;
-			input_type_.up_ = 0;
+    	if (input_type_.up_ == 1) {
+			if(onGround)
+			{
+				y_val_ = - PLAYER_JUMP_VAL;
+				input_type_.up_ = 0;
 
-		}
-		onGround = false;
+			}
+			onGround = false;
 
 
-    }
+    	}
 
-    checkMap(map_data);
-    CenterEntityOnMap(map_data);
+    	checkMap(map_data);
+    	CenterEntityOnMap(map_data);
+    	}
+    	if(comeback_time_>0) {
+			comeback_time_--;
+			if(comeback_time_ ==0) {
+				if(x_pos_ > 256) {
+					x_pos_-=256; // 4 tile map
+					map_x_ -= 256;
+				}
+				else{
+					x_pos_ =0;
+				}
+				y_pos_ =0;
+				x_val_ = 0;
+				y_val_ = 0;
+
+			}
+
+    	}
 }
 
 void mainObject::CenterEntityOnMap(Map& map_data) {
@@ -295,6 +325,9 @@ void mainObject::checkMap(Map& map_data) {
     }
     if (x_pos_ + width_frame_ > map_data.max_x_) {
         x_pos_ = map_data.max_x_ - width_frame_ - 1;
+    }
+    if(y_pos_>map_data.max_y_){
+		comeback_time_ = 60;
     }
 
 }

@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 
 	mainMap gameMap;
 
-		gameMap.LoadMap("map/map01.dat");
+	gameMap.LoadMap("map/map01.dat");
 
 
 	gameMap.LoadTiles(g_screen);
