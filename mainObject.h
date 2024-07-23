@@ -45,7 +45,11 @@ public:
 
 	void HandleBullet(SDL_Renderer* des);
 
+	void IncreaseMoney();
+
 private:
+
+	int money_cnt = 0;
 
 	std::vector<bulletObj*> p_bullet_list_;
 

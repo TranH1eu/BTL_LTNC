@@ -21,10 +21,17 @@ mainObject::mainObject() {
     map_y_ = 0;
 
     comeback_time_ = 0;
+
+    money_cnt =0;
 }
 
 mainObject::~mainObject() {
 
+}
+
+void mainObject::IncreaseMoney() {
+
+	money_cnt++;
 }
 
 bool mainObject::LoadImg(std::string path, SDL_Renderer* screen) {
@@ -154,7 +161,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 				LoadImg("img//jump_left.png", screen);
             }
             break;
-		case SDLK_UP:
+		case SDLK_UP :
 			if(onGround){
 
 
@@ -201,6 +208,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 
 
 			p_bullet->set_x_val(20);
+			p_bullet->set_y_val(20);
 			p_bullet->set_is_move(true);
 
 			p_bullet_list_.push_back(p_bullet);
@@ -317,18 +325,44 @@ void mainObject::checkMap(Map& map_data) {
     if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y) {
         //di chuyen sang phai
         if (x_val_ > 0) {
-            if (map_data.tile[y1][x2] != BLANK_SIZE || map_data.tile[y2][x2] != BLANK_SIZE) {
-                x_pos_ = x2 * TILE_SIZE;
-                x_pos_ -= width_frame_ + 1;
-                x_val_ = 0;
-            }
+
+			int val1 = map_data.tile[y1][x2];
+			int val2 = map_data.tile[y2][x2];
+
+			if(val1 == STATE_MONEY || val2 == STATE_MONEY) {
+				map_data.tile[y1][x2] = 0;
+				map_data.tile[y2][x2] = 0;
+				IncreaseMoney();
+			}
+			else {
+				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
+                	x_pos_ = x2 * TILE_SIZE;
+                	x_pos_ -= width_frame_ + 1;
+                	x_val_ = 0;
+           		}
+
+			}
+
+
         }
         //di chuyen sang trai
         else if (x_val_ < 0) {
-            if (map_data.tile[y1][x1] != BLANK_SIZE || map_data.tile[y2][x1] != BLANK_SIZE) {
+			int val1 = map_data.tile[y1][x2];
+			int val2 = map_data.tile[y2][x2];
+
+			if(val1 == STATE_MONEY || val2 == STATE_MONEY) {
+				map_data.tile[y1][x2] = 0;
+				map_data.tile[y2][x2] = 0;
+				IncreaseMoney();
+			}
+			else {
+				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
                 x_pos_ = (x1 + 1) * TILE_SIZE;
                 x_val_ = 0;
             }
+
+			}
+
         }
     }
 
@@ -343,18 +377,39 @@ void mainObject::checkMap(Map& map_data) {
 
     if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y) {
         if (y_val_ > 0) {
-            if (map_data.tile[y2][x1] != BLANK_SIZE || map_data.tile[y2][x2] != BLANK_SIZE) {
-                y_pos_ = y2 * TILE_SIZE;
-                y_pos_ -= height_frame_ + 1;
-                y_val_ = 0;
-                onGround = true;
+			int val1 = map_data.tile[y2][x1];
+			int val2 = map_data.tile[y2][x2];
+			if(val1 == STATE_MONEY || val2 == STATE_MONEY) {
+				map_data.tile[y2][x1] = 0;
+				map_data.tile[y2][x2] = 0;
+				IncreaseMoney();
+			}
+			else {
+				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
+                	y_pos_ = y2 * TILE_SIZE;
+                	y_pos_ -= height_frame_ + 1;
+                	y_val_ = 0;
+                	onGround = true;
             }
+			}
+
+
         }
         else if (y_val_ < 0) {
-            if (map_data.tile[y1][x1] != BLANK_SIZE || map_data.tile[y1][x2] != BLANK_SIZE) {
-                y_pos_ = (y1 + 1) * TILE_SIZE;
-                y_val_ = 0;
-            }
+			int val1 = map_data.tile[y1][x1];
+			int val2 = map_data.tile[y1][x2];
+			if(val1 == STATE_MONEY || val2 == STATE_MONEY) {
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y1][x2] = 0;
+				IncreaseMoney();
+			}
+			else {
+				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
+                	y_pos_ = (y1 + 1) * TILE_SIZE;
+                	y_val_ = 0;
+            	}
+			}
+
         }
     }
 

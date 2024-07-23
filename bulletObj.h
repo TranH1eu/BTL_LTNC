@@ -14,6 +14,11 @@ public :
 	enum BulletDir {
 		DIR_RIGHT = 20,
 		DIR_LEFT = 21,
+		DIR_UP = 22,
+		DIR_UPLEFT = 23,
+		DIR_UPRIGHT = 24,
+		DIR_DOWNLEFT = 25,
+		DIR_DOWNRIGHT = 26,
 	};
 
 	void set_x_val(const int& xVal) {x_val_ = xVal;}
