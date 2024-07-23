@@ -2,8 +2,12 @@
 #ifndef MAIN_OBJECT_H_
 #define MAIN_OBJECT_H_
 
+#include <vector>
+
 #include "commonFunction.h"
 #include "baseFunction.h"
+#include "bulletObj.h"
+
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FALL_SPEED 10
@@ -32,8 +36,19 @@ public:
 	void setMapXY(const int map_x, const int map_y){map_x_ = map_x; map_y_ = map_y;}
 	void CenterEntityOnMap(Map& map_data);
 
+	void set_bullet_list(std::vector<bulletObj*> bullet_list) {
+
+		p_bullet_list_ = bullet_list;
+
+	}
+	std::vector<bulletObj*> get_bullet_list() const {return p_bullet_list_;}
+
+	void HandleBullet(SDL_Renderer* des);
 
 private:
+
+	std::vector<bulletObj*> p_bullet_list_;
+
 	float x_val_;
 	float y_val_;
 

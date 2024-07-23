@@ -99,8 +99,8 @@ int main(int argc, char* argv[])
 
 		Map map_data = gameMap.getMap();
 
+		p_player.HandleBullet(g_screen);
 		p_player.setMapXY(map_data.start_x_, map_data.start_y_);
-
 		p_player.DoPlayer(map_data);
 		p_player.Show(g_screen);
 
