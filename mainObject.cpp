@@ -163,8 +163,6 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
             break;
 		case SDLK_UP :
 			if(onGround){
-
-
 				input_type_.up_ =1;
 
 			}
@@ -347,18 +345,18 @@ void mainObject::checkMap(Map& map_data) {
         }
         //di chuyen sang trai
         else if (x_val_ < 0) {
-			int val1 = map_data.tile[y1][x2];
-			int val2 = map_data.tile[y2][x2];
+			int val1 = map_data.tile[y1][x1];
+			int val2 = map_data.tile[y2][x1];
 
 			if(val1 == STATE_MONEY || val2 == STATE_MONEY) {
-				map_data.tile[y1][x2] = 0;
-				map_data.tile[y2][x2] = 0;
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y2][x1] = 0;
 				IncreaseMoney();
 			}
 			else {
 				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
-                x_pos_ = (x1 + 1) * TILE_SIZE;
-                x_val_ = 0;
+                	x_pos_ = (x1 + 1) * TILE_SIZE;
+                	x_val_ = 0;
             }
 
 			}
@@ -387,10 +385,11 @@ void mainObject::checkMap(Map& map_data) {
 			else {
 				if (val1 != BLANK_SIZE || val2 != BLANK_SIZE) {
                 	y_pos_ = y2 * TILE_SIZE;
-                	y_pos_ -= height_frame_ + 1;
+                	y_pos_ -= (height_frame_ + 1);
                 	y_val_ = 0;
                 	onGround = true;
-            }
+
+            	}
 			}
 
 

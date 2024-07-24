@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1721729240 source:e:\workspace\finalproject\main.cpp
+1721823373 source:e:\workspace\finalproject\main.cpp
 	"main.h"
 	"commonFunction.h"
 	"baseFunction.h"
 	"mainMap.h"
 	"mainObject.h"
 	"Timer.h"
+	"threatsObj.h"
 
 1720194199 d:\downloads\sdl2-2.30.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -416,9 +417,10 @@
 	<tchar.h>
 	<cstdio>
 
-1721729708 e:\workspace\finalproject\commonfunction.h
+1721815585 e:\workspace\finalproject\commonfunction.h
 	<windows.h>
 	<string>
+	<vector>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -454,7 +456,7 @@
 	"commonFunction.h"
 	"baseFunction.h"
 
-1721729190 source:e:\workspace\finalproject\mainobject.cpp
+1721807140 source:e:\workspace\finalproject\mainobject.cpp
 	"main.h"
 	"mainObject.h"
 
@@ -478,4 +480,12 @@
 1721728220 e:\workspace\finalproject\bulletobj.h
 	"baseFunction.h"
 	"commonFunction.h"
+
+1721822805 source:e:\workspace\finalproject\threatsobj.cpp
+	"main.h"
+	"threatsObj.h"
+
+1721821987 e:\workspace\finalproject\threatsobj.h
+	"commonFunction.h"
+	"baseFunction.h"
 

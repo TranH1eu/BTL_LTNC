@@ -50,6 +50,8 @@
 		<Unit filename="Timer.h" />
 		<Unit filename="baseFunction.cpp" />
 		<Unit filename="baseFunction.h" />
+		<Unit filename="bulletObj.cpp" />
+		<Unit filename="bulletObj.h" />
 		<Unit filename="commonFunction.cpp" />
 		<Unit filename="commonFunction.h" />
 		<Unit filename="main.cpp" />
@@ -58,6 +60,8 @@
 		<Unit filename="mainMap.h" />
 		<Unit filename="mainObject.cpp" />
 		<Unit filename="mainObject.h" />
+		<Unit filename="threatsObj.cpp" />
+		<Unit filename="threatsObj.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

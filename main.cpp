@@ -6,6 +6,7 @@
 #include "mainMap.h"
 #include "mainObject.h"
 #include "Timer.h"
+#include "threatsObj.h"
 
 baseFunction g_background;
 
@@ -58,6 +59,25 @@ void close() {
 	SDL_Quit();
 }
 
+std::vector<threatsObj*> MakeThreatList() {
+
+	std::vector<threatsObj*> list_threats;
+	threatsObj* threats_num = new threatsObj[20];
+
+	for(int i=0;i<20;i++) {
+		threatsObj* p_threat = (threats_num+i);
+		if(p_threat != NULL) {
+			p_threat->LoadImg("img//threat_level.png", g_screen);
+			p_threat->set_clips();
+			p_threat->set_x_pos(700 + i*1200);
+			p_threat->set_y_pos(250);
+			list_threats.push_back(p_threat);
+		}
+	}
+
+	return list_threats;
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -70,14 +90,16 @@ int main(int argc, char* argv[])
 
 	mainMap gameMap;
 
-	gameMap.LoadMap("map/map01.dat");
+	gameMap.LoadMap("map//map01.dat");
 
 
 	gameMap.LoadTiles(g_screen);
 
 	mainObject p_player;
-	p_player.LoadImg("img/soldier_right.png", g_screen);
+	p_player.LoadImg("img//soldier_right.png", g_screen);
 	p_player.set_clips();
+
+	std::vector<threatsObj*> threats_list = MakeThreatList();
 
 	bool is_quit = false;
 	while(!is_quit) {
@@ -108,6 +130,15 @@ int main(int argc, char* argv[])
 
 		gameMap.setMap(map_data);
 		gameMap.DrawMap(g_screen);
+
+		for(int i=0;i<threats_list.size();i++) {
+			threatsObj* p_threat = threats_list.at(i);
+			if(p_threat != NULL) {
+				p_threat->setMapXY(map_data.start_x_, map_data.start_y_);
+				p_threat->DoPlayer(map_data);
+				p_threat->Show(g_screen);
+			}
+		}
 
 		SDL_RenderPresent(g_screen);
 
