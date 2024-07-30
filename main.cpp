@@ -62,15 +62,39 @@ void close() {
 std::vector<threatsObj*> MakeThreatList() {
 
 	std::vector<threatsObj*> list_threats;
+
+	threatsObj* dynamic_threats = new threatsObj[20];
+	for(int i=0;i<20;i++) {
+		threatsObj* p_threat = dynamic_threats+i;
+		if(p_threat!=NULL) {
+			p_threat->LoadImg("img//threat_left.png", g_screen);
+			p_threat->set_clips();
+			p_threat->set_type_move(threatsObj::MOVE_IN_SPACE_THREAT);
+			p_threat->set_x_pos(500+i*500);
+			p_threat->set_y_pos(200);
+
+			int pos1 = p_threat->get_x_pos() - 60;
+			int pos2 = p_threat->get_y_pos() + 60;
+			p_threat->setAnimationPos(pos1, pos2);
+
+			list_threats.push_back(p_threat);
+		}
+	}
+
 	threatsObj* threats_num = new threatsObj[20];
 
 	for(int i=0;i<20;i++) {
 		threatsObj* p_threat = (threats_num+i);
 		if(p_threat != NULL) {
-			p_threat->LoadImg("img//threat_level.png", g_screen);
+			p_threat->LoadImg("img//threat_test.png", g_screen);
 			p_threat->set_clips();
 			p_threat->set_x_pos(700 + i*1200);
 			p_threat->set_y_pos(250);
+
+			p_threat->set_type_move(threatsObj::STATIC_THREAT);
+			p_threat->set_input_left(0);
+
+
 			list_threats.push_back(p_threat);
 		}
 	}
@@ -135,6 +159,7 @@ int main(int argc, char* argv[])
 			threatsObj* p_threat = threats_list.at(i);
 			if(p_threat != NULL) {
 				p_threat->setMapXY(map_data.start_x_, map_data.start_y_);
+				p_threat->ImpMoveType(g_screen);
 				p_threat->DoPlayer(map_data);
 				p_threat->Show(g_screen);
 			}

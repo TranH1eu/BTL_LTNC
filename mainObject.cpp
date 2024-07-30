@@ -165,15 +165,20 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 			if(onGround){
 				input_type_.up_ =1;
 
-			}
-
-			if(status_ == WALK_RIGHT) {
+				if(status_ == WALK_RIGHT) {
 				LoadImg("img//jump_right.png", screen);
 
+				}
+				else if(status_ == WALK_LEFT) {
+					LoadImg("img//jump_left.png", screen);
+				}
+				onGround = false;
+
 			}
-			else if(status_ == WALK_RIGHT) {
-				LoadImg("img//jump_left.png", screen);
-			}
+
+
+
+
 			break;
         }
     }

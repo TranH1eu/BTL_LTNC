@@ -14,6 +14,11 @@ threatsObj::threatsObj() {
 	comeback_time =0;
 	frame_ =0;
 
+	animation_a_ =0;
+	animation_b_ =0;
+
+	input_type_.left_ = 1;
+	type_move_ = STATIC_THREAT;
 
 }
 
@@ -104,23 +109,38 @@ void threatsObj::DoPlayer(Map& gMap) {
 			y_val_ = MAX_THREAT_FALL_SPEED;
 		}
 
+		if(input_type_.left_==1) {
+			x_val_-= THREAT_SPEED;
+		}
+		else if(input_type_.right_ == 1) {
+			x_val_+=THREAT_SPEED;
+		}
+
 		checkMap(gMap);
 	}
 
 	else if(comeback_time > 0) {
 		comeback_time--;
 		if(comeback_time == 0) {
-			x_val_ =0;
-			y_val_ =0;
-			if(x_pos_>256) {
-				x_pos_ -= 256;
-			}
-			else x_pos_ = 0;
-			y_pos_ =0;
-			comeback_time =0;
+			InitThreats();
 		}
 	}
 
+}
+
+void threatsObj::InitThreats() {
+
+	x_val_ =0;
+	y_val_ =0;
+	if(x_pos_>256) {
+		x_pos_ -= 256;
+		animation_a_-=256;
+		animation_b_ -= 256;
+	}
+	else x_pos_ = 0;
+	y_pos_ =0;
+	comeback_time =0;
+	input_type_.left_ = 1;
 }
 
 void threatsObj::checkMap(Map& gMap) {
@@ -217,4 +237,32 @@ void threatsObj::checkMap(Map& gMap) {
 		comeback_time = 60;
     }
 
+}
+
+void threatsObj::ImpMoveType(SDL_Renderer* screen) {
+
+	if(type_move_ == STATIC_THREAT) {
+		;
+	}
+	else {
+		//th threat dan o tren mat dat
+		if(on_ground == true) {
+				//khi di sang ben phai qua b thi se quay lai
+			if(x_pos_>animation_b_) {
+				input_type_.left_ = 1;
+				input_type_.right_ = 0;
+				LoadImg("img//threat_left.png", screen);
+			}
+			else if(x_pos_<animation_a_) {
+				input_type_.left_=0;
+				input_type_.right_=1;
+				LoadImg("img//player_right.png", screen);
+			}
+		}
+		else {
+
+			if(input_type_.left_ == 1) LoadImg("img//player_left.png", screen);
+		}
+
+	}
 }
