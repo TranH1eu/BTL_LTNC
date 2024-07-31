@@ -113,7 +113,7 @@ void threatsObj::DoPlayer(Map& gMap) {
 			x_val_-= THREAT_SPEED;
 		}
 		else if(input_type_.right_ == 1) {
-			x_val_+=THREAT_SPEED;
+			x_val_+= THREAT_SPEED;
 		}
 
 		checkMap(gMap);
@@ -137,9 +137,11 @@ void threatsObj::InitThreats() {
 		animation_a_-=256;
 		animation_b_ -= 256;
 	}
-	else x_pos_ = 0;
-	y_pos_ =0;
-	comeback_time =0;
+	else {
+		x_pos_ = 0;
+	}
+	y_pos_ = 0;
+	comeback_time = 0;
 	input_type_.left_ = 1;
 }
 
@@ -248,20 +250,22 @@ void threatsObj::ImpMoveType(SDL_Renderer* screen) {
 		//th threat dan o tren mat dat
 		if(on_ground == true) {
 				//khi di sang ben phai qua b thi se quay lai
-			if(x_pos_>animation_b_) {
+			if(x_pos_>  animation_b_) {
 				input_type_.left_ = 1;
 				input_type_.right_ = 0;
-				LoadImg("img//threat_left.png", screen);
+				LoadImg("img//threat_test.png", screen);
 			}
-			else if(x_pos_<animation_a_) {
+			else if(x_pos_< animation_a_) {
 				input_type_.left_=0;
 				input_type_.right_=1;
-				LoadImg("img//player_right.png", screen);
+				LoadImg("img//threat_test.png", screen);
 			}
 		}
 		else {
 
-			if(input_type_.left_ == 1) LoadImg("img//player_left.png", screen);
+			if(input_type_.left_ == 1) {
+				LoadImg("img//threat_test.png", screen);
+			}
 		}
 
 	}

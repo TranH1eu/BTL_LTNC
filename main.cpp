@@ -64,17 +64,17 @@ std::vector<threatsObj*> MakeThreatList() {
 	std::vector<threatsObj*> list_threats;
 
 	threatsObj* dynamic_threats = new threatsObj[20];
-	for(int i=0;i<20;i++) {
-		threatsObj* p_threat = dynamic_threats+i;
-		if(p_threat!=NULL) {
-			p_threat->LoadImg("img//threat_left.png", g_screen);
+	for(int i=0;i<10;i++) {
+		threatsObj* p_threat = (dynamic_threats+i);
+		if(p_threat != NULL) {
+			p_threat->LoadImg("img//threat_level.png", g_screen);
 			p_threat->set_clips();
 			p_threat->set_type_move(threatsObj::MOVE_IN_SPACE_THREAT);
-			p_threat->set_x_pos(500+i*500);
-			p_threat->set_y_pos(200);
+			p_threat->set_x_pos(2000+i*1000);
+			p_threat->set_y_pos(100);
 
 			int pos1 = p_threat->get_x_pos() - 60;
-			int pos2 = p_threat->get_y_pos() + 60;
+			int pos2 = p_threat->get_x_pos() + 60;
 			p_threat->setAnimationPos(pos1, pos2);
 
 			list_threats.push_back(p_threat);
