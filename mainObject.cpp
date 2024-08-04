@@ -97,19 +97,19 @@ void mainObject::Show(SDL_Renderer* des) {
 	if(onGround == true) {
 
 		if (status_ == WALK_LEFT) {
-        	LoadImg("img/soldier_left.png", des);
+        	LoadImg("img//soldier_left.png", des);
     	}
     	else {
-        	LoadImg("img/soldier_right.png", des);
+        	LoadImg("img//soldier_right.png", des);
 	}
 
 	}
 	else{
 		if (status_ == WALK_LEFT) {
-        	LoadImg("img/jump_left.png", des);
+        	LoadImg("img//jump_left.png", des);
     	}
     	else {
-        	LoadImg("img/jump_right.png", des);
+        	LoadImg("img//jump_right.png", des);
     	}
 	}
 
@@ -198,7 +198,8 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
     else if (events.type == SDL_MOUSEBUTTONDOWN) {
 		if(events.button.button == SDL_BUTTON_LEFT) {
 			bulletObj* p_bullet = new bulletObj();
-			p_bullet->LoadImg("img//gun.png", screen);
+			p_bullet->set_bullet_type(bulletObj::LASER_BULLET);
+			p_bullet->LoadImgBullet(screen);
 
 			if(status_ == WALK_LEFT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
@@ -276,7 +277,7 @@ void mainObject::DoPlayer(Map& map_data) {
 			comeback_time_--;
 			if(comeback_time_ ==0) {
 				if(x_pos_ > 256) {
-					x_pos_+=256; // 4 tile map
+					x_pos_-=256; // 4 tile map
 					map_x_ += 256;
 				}
 				else{

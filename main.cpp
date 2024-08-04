@@ -63,14 +63,14 @@ std::vector<threatsObj*> MakeThreatList() {
 
 	std::vector<threatsObj*> list_threats;
 
-	threatsObj* dynamic_threats = new threatsObj[20];
-	for(int i=0;i<10;i++) {
+	threatsObj* dynamic_threats = new threatsObj[25];
+	for(int i=0;i<25;i++) {
 		threatsObj* p_threat = (dynamic_threats+i);
 		if(p_threat != NULL) {
 			p_threat->LoadImg("img//threat_level.png", g_screen);
 			p_threat->set_clips();
 			p_threat->set_type_move(threatsObj::MOVE_IN_SPACE_THREAT);
-			p_threat->set_x_pos(2000+i*1000);
+			p_threat->set_x_pos(500+i*1000);
 			p_threat->set_y_pos(100);
 
 			int pos1 = p_threat->get_x_pos() - 60;
@@ -93,11 +93,15 @@ std::vector<threatsObj*> MakeThreatList() {
 
 			p_threat->set_type_move(threatsObj::STATIC_THREAT);
 			p_threat->set_input_left(0);
-
-
+			bulletObj* p_bullet = new bulletObj();
+			p_threat->InitBullet(p_bullet, g_screen);
 			list_threats.push_back(p_threat);
+
+
 		}
 	}
+
+
 
 	return list_threats;
 }
@@ -105,6 +109,7 @@ std::vector<threatsObj*> MakeThreatList() {
 
 int main(int argc, char* argv[])
 {
+
 	Timer fps_timer;
 
 	if(InitData() == false)
@@ -124,6 +129,7 @@ int main(int argc, char* argv[])
 	p_player.set_clips();
 
 	std::vector<threatsObj*> threats_list = MakeThreatList();
+
 
 	bool is_quit = false;
 	while(!is_quit) {
@@ -161,9 +167,11 @@ int main(int argc, char* argv[])
 				p_threat->setMapXY(map_data.start_x_, map_data.start_y_);
 				p_threat->ImpMoveType(g_screen);
 				p_threat->DoPlayer(map_data);
+				p_threat->MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HIGHT);
 				p_threat->Show(g_screen);
 			}
 		}
+
 
 		SDL_RenderPresent(g_screen);
 

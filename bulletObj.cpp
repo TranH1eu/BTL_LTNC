@@ -7,11 +7,22 @@ bulletObj::bulletObj() {
 	x_val_ =0;
 	y_val_ =0;
 	is_move_=0;
+	bullet_type_ = SPHERE_BULLET;
 
 }
 
 bulletObj::~bulletObj() {
 
+}
+
+void bulletObj::LoadImgBullet(SDL_Renderer* des) {
+
+	if(bullet_type_ == SPHERE_BULLET){
+		LoadImg("img//water_bullet.png", des);
+	}
+	else if(bullet_type_ == LASER_BULLET) {
+		LoadImg("img//water_bullet.png", des);
+	}
 }
 
 void bulletObj::HandleMove(const int& x_border, const int& y_border) {

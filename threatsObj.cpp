@@ -20,6 +20,8 @@ threatsObj::threatsObj() {
 	input_type_.left_ = 1;
 	type_move_ = STATIC_THREAT;
 
+
+
 }
 
 threatsObj::~threatsObj() {
@@ -253,20 +255,54 @@ void threatsObj::ImpMoveType(SDL_Renderer* screen) {
 			if(x_pos_>  animation_b_) {
 				input_type_.left_ = 1;
 				input_type_.right_ = 0;
-				LoadImg("img//threat_test.png", screen);
+				LoadImg("img//threat_level.png", screen);
 			}
 			else if(x_pos_< animation_a_) {
 				input_type_.left_=0;
 				input_type_.right_=1;
-				LoadImg("img//threat_test.png", screen);
+				LoadImg("img//threat_level.png", screen);
 			}
 		}
 		else {
 
 			if(input_type_.left_ == 1) {
-				LoadImg("img//threat_test.png", screen);
+				LoadImg("img//threat_level.png", screen);
 			}
 		}
 
 	}
 }
+
+void threatsObj::InitBullet(bulletObj* p_bullet, SDL_Renderer* screen) {
+
+	if(p_bullet!=NULL) {
+		p_bullet->set_bullet_type(bulletObj::LASER_BULLET);
+		p_bullet->LoadImgBullet(screen);
+		p_bullet->set_is_move(true);
+		p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
+		p_bullet->SetRect(x_pos_ + 20, y_pos_ + 10);
+		p_bullet->set_x_val(15);
+		bullet_list_.push_back(p_bullet);
+
+	}
+}
+
+void threatsObj::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit) {
+
+	for(int i=0;i<bullet_list_.size();i++) {
+		bulletObj* p_bullet = bullet_list_.at(i);
+		if(p_bullet != NULL) {
+			if(p_bullet->get_is_move()) {
+				p_bullet->HandleMove(x_limit, y_limit);
+				p_bullet->Render(screen);
+			}
+			else {
+				p_bullet->set_is_move(true);
+				p_bullet->SetRect(x_pos_ + 20, y_pos_ + 10);
+			}
+		}
+	}
+}
+
+
+
