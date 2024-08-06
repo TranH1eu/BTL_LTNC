@@ -18,9 +18,9 @@ bulletObj::~bulletObj() {
 void bulletObj::LoadImgBullet(SDL_Renderer* des) {
 
 	if(bullet_type_ == SPHERE_BULLET){
-		LoadImg("img//water_bullet.png", des);
+		LoadImg("img//gun.png", des);
 	}
-	else if(bullet_type_ == LASER_BULLET) {
+	if(bullet_type_ == LASER_BULLET) {
 		LoadImg("img//water_bullet.png", des);
 	}
 }

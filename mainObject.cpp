@@ -46,6 +46,17 @@ bool mainObject::LoadImg(std::string path, SDL_Renderer* screen) {
 
 }
 
+SDL_Rect mainObject::GetRectFrame() {
+
+	SDL_Rect rect;
+	rect.x = rect_.x;
+	rect.y = rect_.y;
+	rect.w = width_frame_;
+	rect.h = height_frame_;
+
+	return rect;
+}
+
 void mainObject::set_clips() {
 
     if (width_frame_ > 0 && height_frame_ > 0) {
@@ -198,8 +209,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
     else if (events.type == SDL_MOUSEBUTTONDOWN) {
 		if(events.button.button == SDL_BUTTON_LEFT) {
 			bulletObj* p_bullet = new bulletObj();
-			p_bullet->set_bullet_type(bulletObj::LASER_BULLET);
-			p_bullet->LoadImgBullet(screen);
+			p_bullet->LoadImg("img//gun.png", screen);
 
 			if(status_ == WALK_LEFT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
@@ -237,6 +247,20 @@ void mainObject::HandleBullet(SDL_Renderer* des) {
 				}
 
 			}
+		}
+	}
+}
+
+void mainObject::RemoveBullet(const int& idex) {
+
+	int size = p_bullet_list_.size();
+	if(size>0 && idex < size) {
+		bulletObj* p_bullet = p_bullet_list_.at(idex);
+		p_bullet_list_.erase(p_bullet_list_.begin() + idex);
+
+		if(p_bullet) {
+			delete p_bullet;
+			p_bullet = NULL;
 		}
 	}
 }

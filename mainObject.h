@@ -35,6 +35,7 @@ public:
 
 	void setMapXY(const int map_x, const int map_y){map_x_ = map_x; map_y_ = map_y;}
 	void CenterEntityOnMap(Map& map_data);
+	SDL_Rect GetRectFrame();
 
 	void set_bullet_list(std::vector<bulletObj*> bullet_list) {
 
@@ -46,6 +47,8 @@ public:
 	void HandleBullet(SDL_Renderer* des);
 
 	void IncreaseMoney();
+
+	void RemoveBullet(const int& idex);
 
 private:
 
