@@ -59,6 +59,8 @@ public :
 	bool isMovingLeft() const { return input_type_.left_ == 1; }
 	bool isMovingRight() const { return input_type_.right_ == 1; }
 
+	bool isDynamic() const {return type_move_ == MOVE_IN_SPACE_THREAT; }
+
 private :
 
 	int map_x_;

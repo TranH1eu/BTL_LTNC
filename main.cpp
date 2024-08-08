@@ -99,19 +99,11 @@ std::vector<threatsObj*> MakeThreatList() {
 			bulletObj* p_bullet = new bulletObj();
 
 			if(p_threat->isMovingLeft()) {
-				p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
-			}
-			else if(p_threat->isMovingRight()) {
 				p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_RIGHT);
 			}
-
-
-
-
-			//p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
-			//p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
-
-
+			else if(p_threat->isMovingRight()) {
+				p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
+			}
 
 			list_threats.push_back(p_threat);
 		}
@@ -255,8 +247,12 @@ int main(int argc, char* argv[])
 						bool bColl = SDLCommonFunc::collisionCheck(bRect, tRect);
 						if(bColl) {
 							p_player.RemoveBullet(r);
-							obj_threat->Free();
-							threats_list.erase(threats_list.begin() + t);
+							if(obj_threat->isDynamic()) {
+								obj_threat->Free();
+								threats_list.erase(threats_list.begin() + t);
+							}
+							//obj_threat->Free();
+							//threats_list.erase(threats_list.begin() + t);
 						}
 					}
 				}

@@ -214,82 +214,91 @@ void threatsObj::checkMap(Map& gMap) {
 	}
 }
 
+
+
 void threatsObj::ImpMoveType(SDL_Renderer* screen) {
-
-	if(type_move_ == STATIC_THREAT) {
-		;
-	}
-	else {
-		//th threat dan o tren mat dat
-		if(on_ground == true) {
-			//khi di sang ben phai qua b thi se quay lai
-			if(x_pos_>  animation_b_) {
-				input_type_.left_ = 1;
-				input_type_.right_ = 0;
-				LoadImg("img//threat_level.png", screen);
-			}
-			else if(x_pos_< animation_a_) {
-				input_type_.left_=0;
-				input_type_.right_=1;
-				LoadImg("img//threat_level.png", screen);
-			}
-		}
-		else {
-			if(input_type_.left_ == 1) {
-				LoadImg("img//threat_level.png", screen);
-
-			}
-		}
-	}
+    if(type_move_ == STATIC_THREAT) {
+        return;
+    } else {
+        if(on_ground == true) {
+            if(x_pos_ > animation_b_) {
+                input_type_.left_ = 1;
+                input_type_.right_ = 0;
+                LoadImg("img//threat_left.png", screen);
+            } else if(x_pos_ < animation_a_) {
+                input_type_.left_ = 0;
+                input_type_.right_ = 1;
+                LoadImg("img//threat_right.png", screen);
+            }
+        } else {
+            // Nếu đối tượng threat đang di chuyển trên không
+            if(input_type_.left_ == 1) {
+                LoadImg("img//threat_left.png", screen);
+            }
+        }
+    }
 }
+
+
 
 void threatsObj::InitBullet(bulletObj* p_bullet, SDL_Renderer* screen, int direction) {
+    if (p_bullet != NULL) {
+        p_bullet->set_bullet_type(bulletObj::LASER_BULLET);
+        p_bullet->LoadImgBullet(screen);
+        p_bullet->set_is_move(true);
 
-	if(p_bullet!=NULL) {
-		p_bullet->set_bullet_type(bulletObj::LASER_BULLET);
-		p_bullet->LoadImgBullet(screen);
-		p_bullet->set_is_move(true);
-		if (direction == bulletObj::DIR_LEFT) {
-			p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
-			p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
-			p_bullet->set_x_val(10);
-		} else if (direction == bulletObj::DIR_RIGHT) {
-			p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
-			p_bullet->SetRect(rect_.x + width_frame_ - 5, y_pos_ + 10);
-			p_bullet->set_x_val(10);
-		}
-		bullet_list_.push_back(p_bullet);
-	}
+        // Xác định hướng đạn dựa trên hướng di chuyển
+        if (direction == bulletObj::DIR_LEFT) {
+            p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
+            p_bullet->SetRect(rect_.x - 20, y_pos_ + 10);  // Đặt vị trí đạn bên trái nhân vật
+            p_bullet->set_x_val(-10);  // Di chuyển đạn sang trái
+        }
+        else if (direction == bulletObj::DIR_RIGHT) {
+            p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
+            p_bullet->SetRect(rect_.x + width_frame_ + 20, y_pos_ + 10);  // Đặt vị trí đạn bên phải nhân vật
+            p_bullet->set_x_val(10);  // Di chuyển đạn sang phải
+        }
+
+        bullet_list_.push_back(p_bullet);
+    }
 }
 
-void threatsObj::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit) {
 
-	for(int i = 0; i < bullet_list_.size(); i++) {
-		bulletObj* p_bullet = bullet_list_.at(i);
-		if(p_bullet != NULL) {
-			if(p_bullet->get_is_move()) {
-				int bullet_distance;
-				if (p_bullet->get_bullet_dir() == bulletObj::DIR_LEFT) {
-					bullet_distance = rect_.x + width_frame_ - p_bullet->GetRect().x;
-				} else if (p_bullet->get_bullet_dir() == bulletObj::DIR_RIGHT) {
-					bullet_distance = p_bullet->GetRect().x - rect_.x;
-				}
-				if(bullet_distance < 300 && bullet_distance > 0) {
-					p_bullet->HandleMove(x_limit, y_limit);
-					p_bullet->Render(screen);
-				}
-				else {
-					p_bullet->set_is_move(false);
-				}
-			}
-			else {
-				p_bullet->set_is_move(true);
-				if (p_bullet->get_bullet_dir() == bulletObj::DIR_LEFT) {
-					p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
-				} else if (p_bullet->get_bullet_dir() == bulletObj::DIR_RIGHT) {
-					p_bullet->SetRect(rect_.x + width_frame_ - 5, y_pos_ + 10);
-				}
-			}
-		}
-	}
+
+
+
+
+void threatsObj::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit) {
+    for (int i = 0; i < bullet_list_.size(); i++) {
+        bulletObj* p_bullet = bullet_list_.at(i);
+        if (p_bullet != NULL) {
+            if (p_bullet->get_is_move()) {
+                // Cải thiện điều kiện kiểm tra khoảng cách
+                int bullet_distance;
+                if (p_bullet->get_bullet_dir() == bulletObj::DIR_LEFT) {
+                    bullet_distance = rect_.x - p_bullet->GetRect().x;
+                } else if (p_bullet->get_bullet_dir() == bulletObj::DIR_RIGHT) {
+                    bullet_distance = p_bullet->GetRect().x - rect_.x;
+                }
+
+                // Điều chỉnh điều kiện kiểm tra khoảng cách để đạn không bị loại bỏ quá sớm
+                if (bullet_distance < 300 && bullet_distance > -300) {
+                    p_bullet->HandleMove(x_limit, y_limit);
+                    p_bullet->Render(screen);
+                } else {
+                    p_bullet->set_is_move(false);
+                }
+            } else {
+                // Tái khởi tạo đạn nếu cần thiết
+                p_bullet->set_is_move(true);
+                if (input_type_.left_ == 1) {
+                    p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
+                    p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
+                } else if (input_type_.right_ == 1) {
+                    p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
+                    p_bullet->SetRect(rect_.x + width_frame_ - 5, y_pos_ + 10);
+                }
+            }
+        }
+    }
 }
