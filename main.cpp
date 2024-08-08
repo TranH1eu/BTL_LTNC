@@ -41,6 +41,7 @@ bool InitData() {
 	return success;
 }
 
+
 bool LoadBackground() {
 
 	bool ret = g_background.LoadImg("img//blue.png", g_screen);
@@ -57,6 +58,23 @@ void close() {
 
 	IMG_Quit();
 	SDL_Quit();
+}
+
+void InitThreatsAndBullets(SDL_Renderer* screen, threatsObj& threat) {
+    // Initialize threat
+    threat.InitThreats();
+    threat.set_clips();
+    threat.setMapXY(0, 0);
+    threat.set_type_move(threatsObj::MOVE_IN_SPACE_THREAT);
+    threat.setAnimationPos(0, 400);
+    threat.set_input_left(1);
+
+    // Initialize bullets
+    bulletObj* bullet1 = new bulletObj();
+    threat.InitBullet(bullet1, screen, bulletObj::DIR_LEFT);
+
+    bulletObj* bullet2 = new bulletObj();
+    threat.InitBullet(bullet2, screen, bulletObj::DIR_RIGHT);
 }
 
 std::vector<threatsObj*> MakeThreatList() {
@@ -77,8 +95,22 @@ std::vector<threatsObj*> MakeThreatList() {
 			int pos2 = p_threat->get_x_pos() + 60;
 			p_threat->setAnimationPos(pos1, pos2);
 
+			p_threat->set_type_move(threatsObj::MOVE_IN_SPACE_THREAT);
 			bulletObj* p_bullet = new bulletObj();
-			p_threat->InitBullet(p_bullet, g_screen);
+
+			if(p_threat->isMovingLeft()) {
+				p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
+			}
+			else if(p_threat->isMovingRight()) {
+				p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_RIGHT);
+			}
+
+
+
+
+			//p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
+			//p_threat->InitBullet(p_bullet, g_screen, bulletObj::DIR_LEFT);
+
 
 
 			list_threats.push_back(p_threat);
@@ -97,9 +129,6 @@ std::vector<threatsObj*> MakeThreatList() {
 
 			p_threat->set_type_move(threatsObj::STATIC_THREAT);
 			p_threat->set_input_left(0);
-/*			bulletObj* p_bullet = new bulletObj();
-			p_threat->InitBullet(p_bullet, g_screen);
-			*/
 			list_threats.push_back(p_threat);
 
 
@@ -133,7 +162,12 @@ int main(int argc, char* argv[])
 	p_player.LoadImg("img//soldier_right.png", g_screen);
 	p_player.set_clips();
 
+	threatsObj threat;
+    InitThreatsAndBullets(g_screen, threat);
+
 	std::vector<threatsObj*> threats_list = MakeThreatList();
+
+
 
 
 	bool is_quit = false;

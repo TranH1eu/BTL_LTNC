@@ -1,7 +1,5 @@
-
 #ifndef THREATS_OBJECT_H_
 #define THREATS_OBJECT_H_
-
 
 #include "commonFunction.h"
 #include "baseFunction.h"
@@ -23,6 +21,8 @@ public :
 		STATIC_THREAT =0,
 		MOVE_IN_SPACE_THREAT = 1,
 	};
+
+
 
 	void set_x_val(const float& xVal) {x_val_ = xVal;}
 	void set_y_val(const float& yVal) {y_val_ = yVal;}
@@ -50,12 +50,14 @@ public :
 
 	std::vector<bulletObj*> get_bullet_list() const {return bullet_list_;}
 	void set_bullet_list(const std::vector<bulletObj*>& bl_list) {bullet_list_ = bl_list;}
-	void InitBullet(bulletObj* p_bullet, SDL_Renderer* screen);
+	void InitBullet(bulletObj* p_bullet, SDL_Renderer* screen, int direction);
 	void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit);
 
 	void RemoveBullet(const int& idex);
 	SDL_Rect GetRectFrame();
 
+	bool isMovingLeft() const { return input_type_.left_ == 1; }
+	bool isMovingRight() const { return input_type_.right_ == 1; }
 
 private :
 
@@ -79,6 +81,8 @@ private :
 	int animation_a_;
 	int animation_b_;
 	Input input_type_;
+
+
 
 	std::vector<bulletObj*> bullet_list_;
 
