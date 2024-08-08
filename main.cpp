@@ -7,6 +7,7 @@
 #include "mainObject.h"
 #include "Timer.h"
 #include "threatsObj.h"
+#include "explosionObj.h"
 
 baseFunction g_background;
 
@@ -159,7 +160,10 @@ int main(int argc, char* argv[])
 
 	std::vector<threatsObj*> threats_list = MakeThreatList();
 
-
+	explosionObj exp_threat;
+	bool tRect = exp_threat.LoadImg("img//explosion.png", g_screen);
+	if(!tRect) return -1;
+	exp_threat.set_clip();
 
 
 	bool is_quit = false;
@@ -229,6 +233,8 @@ int main(int argc, char* argv[])
 			}
 		}
 
+		int frame_exp_width = exp_threat.get_frame_width();
+		int frame_exp_height = exp_threat.get_frame_height();
 
 		std::vector<bulletObj*> bullet_arr = p_player.get_bullet_list();
 		for (int r =0;r<bullet_arr.size();r++) {
@@ -246,6 +252,17 @@ int main(int argc, char* argv[])
 						SDL_Rect bRect = p_bullet->GetRect();
 						bool bColl = SDLCommonFunc::collisionCheck(bRect, tRect);
 						if(bColl) {
+
+
+							for(int ex =0;ex<NUM_FRAME_EXP;ex++) {
+								int x_pos = p_bullet->GetRect().x - frame_exp_width*0.5;
+								int y_pos = p_bullet->GetRect().y - frame_exp_height*0.5;
+
+								exp_threat.set_frame(ex);
+								exp_threat.SetRect(x_pos, y_pos);
+								exp_threat.Show(g_screen);
+							}
+
 							p_player.RemoveBullet(r);
 							if(obj_threat->isDynamic()) {
 								obj_threat->Free();

@@ -250,12 +250,12 @@ void threatsObj::InitBullet(bulletObj* p_bullet, SDL_Renderer* screen, int direc
         // Xác định hướng đạn dựa trên hướng di chuyển
         if (direction == bulletObj::DIR_LEFT) {
             p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
-            p_bullet->SetRect(rect_.x - 20, y_pos_ + 10);  // Đặt vị trí đạn bên trái nhân vật
+            p_bullet->SetRect(rect_.x, y_pos_ + 10);  // Đặt vị trí đạn bên trái nhân vật
             p_bullet->set_x_val(-10);  // Di chuyển đạn sang trái
         }
         else if (direction == bulletObj::DIR_RIGHT) {
             p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
-            p_bullet->SetRect(rect_.x + width_frame_ + 20, y_pos_ + 10);  // Đặt vị trí đạn bên phải nhân vật
+            p_bullet->SetRect(rect_.x + width_frame_ , y_pos_ + 10);  // Đặt vị trí đạn bên phải nhân vật
             p_bullet->set_x_val(10);  // Di chuyển đạn sang phải
         }
 
@@ -293,11 +293,12 @@ void threatsObj::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int&
                 p_bullet->set_is_move(true);
                 if (input_type_.left_ == 1) {
                     p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
-                    p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
+                    p_bullet->SetRect(rect_.x, y_pos_ + 10);
                 } else if (input_type_.right_ == 1) {
                     p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
-                    p_bullet->SetRect(rect_.x + width_frame_ - 5, y_pos_ + 10);
+                    p_bullet->SetRect(rect_.x + width_frame_, y_pos_ + 10);
                 }
+                p_bullet->set_is_move(true);
             }
         }
     }
