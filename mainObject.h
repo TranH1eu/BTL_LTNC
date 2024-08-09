@@ -21,6 +21,8 @@ public:
 	enum WalkType {
 		WALK_RIGHT=0,
 		WALK_LEFT= 1,
+		WALK_UP = 2,
+		WALK_DOWN = 3,
 	};
 
 	bool LoadImg(std::string path, SDL_Renderer* screen);

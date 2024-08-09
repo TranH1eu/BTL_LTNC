@@ -54,6 +54,8 @@
 		<Unit filename="bulletObj.h" />
 		<Unit filename="commonFunction.cpp" />
 		<Unit filename="commonFunction.h" />
+		<Unit filename="explosionObj.cpp" />
+		<Unit filename="explosionObj.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Unit filename="mainMap.cpp" />

@@ -150,6 +150,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
+
         case SDLK_RIGHT:
             status_ = WALK_RIGHT;
             input_type_.right_ = 1;
@@ -175,6 +176,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 		case SDLK_UP :
 			if(onGround){
 				input_type_.up_ =1;
+				status_ = WALK_UP;
 
 				if(status_ == WALK_RIGHT) {
 				LoadImg("img//jump_right.png", screen);
@@ -187,10 +189,15 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 
 			}
 
+			break;
+		case SDLK_DOWN:
 
+			input_type_.down_ = 1;
+			status_ = WALK_DOWN;
 
 
 			break;
+
         }
     }
     else if (events.type == SDL_KEYUP) {
@@ -204,6 +211,8 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 		case SDLK_UP:
 			input_type_.up_ = 0;
 			break;
+		case SDLK_DOWN:
+			input_type_.down_ =0;
         }
     }
     else if (events.type == SDL_MOUSEBUTTONDOWN) {
@@ -218,6 +227,14 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 			else if(status_ == WALK_RIGHT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
 				p_bullet->SetRect(this->rect_.x + width_frame_ -15, rect_.y + height_frame_ * 0.3);
+			}
+			else if(status_ == WALK_UP) {
+				p_bullet->set_bullet_dir(bulletObj::DIR_UP);
+				p_bullet->SetRect(this->rect_.x + width_frame_ - 20, rect_.y + height_frame_ * 0.25);
+			}
+			else if(status_ == WALK_DOWN) {
+				p_bullet->set_bullet_dir(bulletObj::DIR_DOWN);
+				p_bullet->SetRect(this->rect_.x + width_frame_ - 20, rect_.y + height_frame_ * 0.25);
 			}
 
 
