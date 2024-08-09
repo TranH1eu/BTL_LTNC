@@ -224,16 +224,16 @@ void threatsObj::ImpMoveType(SDL_Renderer* screen) {
             if(x_pos_ > animation_b_) {
                 input_type_.left_ = 1;
                 input_type_.right_ = 0;
-                LoadImg("img//threat_left.png", screen);
+                LoadImg("img//player_left.png", screen);
             } else if(x_pos_ < animation_a_) {
                 input_type_.left_ = 0;
                 input_type_.right_ = 1;
-                LoadImg("img//threat_right.png", screen);
+                LoadImg("img//player_right.png", screen);
             }
         } else {
             // Nếu đối tượng threat đang di chuyển trên không
             if(input_type_.left_ == 1) {
-                LoadImg("img//threat_left.png", screen);
+                LoadImg("img//player_left.png", screen);
             }
         }
     }
