@@ -115,7 +115,7 @@ std::vector<threatsObj*> MakeThreatList() {
 	for(int i=0;i<20;i++) {
 		threatsObj* p_threat = (threats_num+i);
 		if(p_threat != NULL) {
-			p_threat->LoadImg("img//threat_test.png", g_screen);
+			p_threat->LoadImg("img//static.png", g_screen);
 			p_threat->set_clips();
 			p_threat->set_x_pos(700 + i*1200);
 			p_threat->set_y_pos(250);
