@@ -46,6 +46,7 @@ bool InitData() {
 	g_sound_bullet[1] = Mix_LoadWAV("sound//Gun1.wav");
 
 	g_sound_exp[0] = Mix_LoadWAV("sound//Explosion.wav");
+	g_sound_exp[1] = Mix_LoadWAV("sound//die.wav");
 	if(g_sound_bullet[0] == NULL || g_sound_bullet[1] == NULL || g_sound_exp[0] == NULL) return false;
 	return success;
 }
@@ -173,6 +174,9 @@ int main(int argc, char* argv[])
 	if(!tRect) return -1;
 	exp_threat.set_clip();
 
+	int cnt_die = 0;
+
+
 
 	bool is_quit = false;
 	while(!is_quit) {
@@ -198,6 +202,16 @@ int main(int argc, char* argv[])
 		p_player.setMapXY(map_data.start_x_, map_data.start_y_);
 		p_player.DoPlayer(map_data);
 		p_player.Show(g_screen);
+		if(p_player.getOutOfPlayer()<3) {
+			cnt_die+=p_player.getOutOfPlayer();
+		}
+		if(cnt_die > 2) {
+					if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+							close();
+							SDL_Quit();
+							return 0;
+					}
+		}
 
 
 
@@ -220,7 +234,7 @@ int main(int argc, char* argv[])
 					bulletObj* pt_bullet = tBullet_list.at(j);
 					if(pt_bullet) {
 						bColl1 = SDLCommonFunc::collisionCheck(pt_bullet->GetRect(), rect_player);
-						if(bColl1 == true) {
+						if(bColl1 == true && cnt_die > 2) {
 							p_threat->RemoveBullet(j);
 							break;
 						}
@@ -230,18 +244,47 @@ int main(int argc, char* argv[])
 				SDL_Rect rect_threat = p_threat->GetRectFrame();
 				bool bColl2 = SDLCommonFunc::collisionCheck(rect_player, rect_threat);
 				if(bColl1 || bColl2) {
-						Mix_PlayChannel(-1, g_sound_exp[0], 0);
-        				if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
-            				p_threat->Free();
-            				close();
-            				SDL_Quit();
+					Mix_PlayChannel(-1, g_sound_exp[1], 0);
+
+					int frame_exp_width = exp_threat.get_frame_width();
+					int frame_exp_height = exp_threat.get_frame_height();
+
+					for(int ex =0;ex<4;ex++) {
+						int x_pos = (p_player.GetRect().x + p_player.get_width_frame()*0.5) - frame_exp_width*0.5;
+						int y_pos = (p_player.GetRect().y + p_player.get_height_frame()*0.5)- frame_exp_height*0.5;
+						exp_threat.set_frame(ex);
+						exp_threat.SetRect(x_pos, y_pos);
+						exp_threat.Show(g_screen);
+					}
+
+					cnt_die++;
+					if(cnt_die<=2) {
+						p_player.SetRect(0, 0);
+						p_player.set_comback_time(1);
+						continue;
+					}
+					else {
+						if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+							p_threat->Free();
+							close();
+							SDL_Quit();
 							return 0;
-        				}
+					}
+
+					}
+
+
 
 				}
 
+
 			}
 		}
+
+
+
+
+
 
 		int frame_exp_width = exp_threat.get_frame_width();
 		int frame_exp_height = exp_threat.get_frame_height();

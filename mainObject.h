@@ -33,6 +33,13 @@ public:
 	void DoPlayer(Map& map_data);
 	void checkMap(Map& map_data);
 
+	int get_width_frame() const {return width_frame_;}
+	int get_height_frame() const {return height_frame_;}
+
+	void set_y_pos(const float& yPos) {y_pos_ = yPos;}
+	float get_y_pos() const {return y_pos_;}
+
+
 
 	void setMapXY(const int map_x, const int map_y){map_x_ = map_x; map_y_ = map_y;}
 	void CenterEntityOnMap(Map& map_data);
@@ -50,6 +57,12 @@ public:
 	void IncreaseMoney();
 
 	void RemoveBullet(const int& idex);
+
+	void set_comback_time(const int& cb_time) {	comeback_time_ = cb_time;}
+
+	int getOutOfPlayer() const{return cnt_fall;}
+
+
 
 private:
 
@@ -79,7 +92,7 @@ private:
 
 	int comeback_time_;
 
-
+	int cnt_fall;
 
 };
 

@@ -23,6 +23,8 @@ mainObject::mainObject() {
     comeback_time_ = 0;
 
     money_cnt =0;
+
+    cnt_fall = 0;
 }
 
 mainObject::~mainObject() {
@@ -471,6 +473,13 @@ void mainObject::checkMap(Map& map_data) {
     }
     if(y_pos_>map_data.max_y_){
 		comeback_time_ = 60;
+		cnt_fall++;
+		if(cnt_fall > 2) {
+			SDL_Quit();
+
+		}
+
     }
 
 }
+
