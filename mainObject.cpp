@@ -146,7 +146,7 @@ void mainObject::Show(SDL_Renderer* des) {
     SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
 }
 
-void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
+void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_Chunk* bullet_sound[2]) {
 
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
@@ -219,6 +219,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen) {
 		if(events.button.button == SDL_BUTTON_LEFT) {
 			bulletObj* p_bullet = new bulletObj();
 			p_bullet->LoadImg("img//gun.png", screen);
+			Mix_PlayChannel(-1, bullet_sound[0], 0);
 
 			if(status_ == WALK_LEFT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);

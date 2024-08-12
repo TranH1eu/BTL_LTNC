@@ -39,6 +39,14 @@ bool InitData() {
 		}
 	}
 
+	if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+		return false;
+	}
+	g_sound_bullet[0] = Mix_LoadWAV("sound//laserGun.wav");
+	g_sound_bullet[1] = Mix_LoadWAV("sound//Gun1.wav");
+
+	g_sound_exp[0] = Mix_LoadWAV("sound//Explosion.wav");
+	if(g_sound_bullet[0] == NULL || g_sound_bullet[1] == NULL || g_sound_exp[0] == NULL) return false;
 	return success;
 }
 
@@ -175,7 +183,7 @@ int main(int argc, char* argv[])
 				is_quit = true;
 			}
 
-			p_player.HandleInputAction(g_event, g_screen);
+			p_player.HandleInputAction(g_event, g_screen, g_sound_bullet);
 
 		}
 		SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
@@ -222,12 +230,14 @@ int main(int argc, char* argv[])
 				SDL_Rect rect_threat = p_threat->GetRectFrame();
 				bool bColl2 = SDLCommonFunc::collisionCheck(rect_player, rect_threat);
 				if(bColl1 || bColl2) {
-					if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
-						p_threat->Free();
-						close();
-						SDL_Quit();
-						return 0;
-					}
+						Mix_PlayChannel(-1, g_sound_exp[0], 0);
+        				if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+            				p_threat->Free();
+            				close();
+            				SDL_Quit();
+							return 0;
+        				}
+
 				}
 
 			}
@@ -267,6 +277,12 @@ int main(int argc, char* argv[])
 							if(obj_threat->isDynamic()) {
 								obj_threat->Free();
 								threats_list.erase(threats_list.begin() + t);
+								Mix_PlayChannel(-1, g_sound_exp[0], 0);
+							}
+							else if(!obj_threat->isDynamic()) {
+								p_player.RemoveBullet(r);
+								Mix_PlayChannel(-1, g_sound_exp[0], 0);
+
 							}
 							//obj_threat->Free();
 							//threats_list.erase(threats_list.begin() + t);
