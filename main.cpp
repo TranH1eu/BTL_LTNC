@@ -202,16 +202,17 @@ int main(int argc, char* argv[])
 		p_player.setMapXY(map_data.start_x_, map_data.start_y_);
 		p_player.DoPlayer(map_data);
 		p_player.Show(g_screen);
-		if(p_player.getOutOfPlayer()<3) {
-			cnt_die+=p_player.getOutOfPlayer();
-		}
-		if(cnt_die > 2) {
-					if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+
+		if(p_player.getOutOfPlayer()+cnt_die>3) {
+				if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+
 							close();
 							SDL_Quit();
 							return 0;
 					}
+
 		}
+
 
 
 
@@ -258,18 +259,19 @@ int main(int argc, char* argv[])
 					}
 
 					cnt_die++;
-					if(cnt_die<=2) {
+					if(cnt_die<=3) {
 						p_player.SetRect(0, 0);
 						p_player.set_comback_time(1);
 						continue;
 					}
+
 					else {
 						if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
 							p_threat->Free();
 							close();
 							SDL_Quit();
 							return 0;
-					}
+						}
 
 					}
 
@@ -280,6 +282,7 @@ int main(int argc, char* argv[])
 
 			}
 		}
+
 
 
 

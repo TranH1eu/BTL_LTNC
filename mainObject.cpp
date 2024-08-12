@@ -474,10 +474,7 @@ void mainObject::checkMap(Map& map_data) {
     if(y_pos_>map_data.max_y_){
 		comeback_time_ = 60;
 		cnt_fall++;
-		if(cnt_fall > 2) {
-			SDL_Quit();
 
-		}
 
     }
 
