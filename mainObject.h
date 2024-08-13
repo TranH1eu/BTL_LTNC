@@ -62,6 +62,7 @@ public:
 
 	int getOutOfPlayer() const{return cnt_fall;}
 
+	int getCountMoney() const{return money_cnt;}
 
 
 private:

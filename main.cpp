@@ -43,8 +43,8 @@ bool InitData() {
 			success = false;
 		}
 
-		fontTime = TTF_OpenFont("font//", 15);
-		if(fontTime != NULL) {
+		fontTime = TTF_OpenFont("font//font.ttf", 15);
+		if(fontTime == NULL) {
 			success = false;
 		}
 	}
@@ -189,6 +189,13 @@ int main(int argc, char* argv[])
 	//Time text
 	textDisplay time_game;
 	time_game.setColor(textDisplay::WHITE_TEXT);
+
+	textDisplay mark;
+	mark.setColor(textDisplay::WHITE_TEXT);
+	UINT mark_value = 0;
+
+	textDisplay money_game;
+	money_game.setColor(textDisplay::WHITE_TEXT);
 
 
 
@@ -338,6 +345,7 @@ int main(int argc, char* argv[])
 								obj_threat->Free();
 								threats_list.erase(threats_list.begin() + t);
 								Mix_PlayChannel(-1, g_sound_exp[0], 0);
+								mark_value++;
 							}
 							else if(!obj_threat->isDynamic()) {
 								p_player.RemoveBullet(r);
@@ -355,7 +363,7 @@ int main(int argc, char* argv[])
 		//Show game time
 		std::string str_time = "TIME: ";
 		Uint32 time_val = SDL_GetTicks()/1000;
-		Uint32 val_time= 300 - time_val;
+		Uint32 val_time= 180 - time_val;
 		if(val_time<=0) {
 			if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
 
@@ -371,6 +379,21 @@ int main(int argc, char* argv[])
 			time_game.LoadFromRenderText(fontTime, g_screen);
 			time_game.RenderText(g_screen, SCREEN_WIDTH - 200, 15);
 		}
+
+		std::string val_str_mark = std::to_string(mark_value);
+		std::string strMark = "KILL: ";
+		strMark += val_str_mark;
+		mark.setText(strMark);
+		mark.LoadFromRenderText(fontTime, g_screen);
+		mark.RenderText(g_screen, SCREEN_WIDTH - 600, 15);
+
+		int money_cnt = p_player.getCountMoney();
+		std::string money_str = std::to_string(money_cnt);
+		money_game.setText(money_str);
+		money_game.LoadFromRenderText(fontTime, g_screen);
+		money_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 250, 15);
+
+
 
 		SDL_RenderPresent(g_screen);
 
