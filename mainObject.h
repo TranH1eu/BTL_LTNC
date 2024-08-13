@@ -64,6 +64,8 @@ public:
 
 	int getCountMoney() const{return money_cnt;}
 
+	int Fall() {return fall_;}
+
 
 private:
 
@@ -95,6 +97,8 @@ private:
 	int comeback_time_;
 
 	int cnt_fall;
+
+	int fall_;
 
 };
 

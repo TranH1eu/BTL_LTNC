@@ -26,6 +26,8 @@ mainObject::mainObject() {
     money_cnt =0;
 
     cnt_fall = 0;
+
+    fall_ =0;
 }
 
 mainObject::~mainObject() {
@@ -482,8 +484,12 @@ void mainObject::checkMap(Map& map_data) {
     if(y_pos_>map_data.max_y_){
 		comeback_time_ = 60;
 		cnt_fall++;
+		fall_=1;
 
 
+    }
+    else if (y_pos_< map_data.max_y_) {
+		fall_ = 0;
     }
 
 }

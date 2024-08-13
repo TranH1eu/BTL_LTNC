@@ -9,6 +9,8 @@
 #include "threatsObj.h"
 #include "explosionObj.h"
 #include "textDisplay.h"
+#include "Blood.h"
+
 
 baseFunction g_background;
 TTF_Font* fontTime = NULL;
@@ -184,6 +186,9 @@ int main(int argc, char* argv[])
 	if(!tRect) return -1;
 	exp_threat.set_clip();
 
+	Blood player_blood;
+	player_blood.Init(g_screen);
+
 	int cnt_die = 0;
 
 	//Time text
@@ -223,7 +228,11 @@ int main(int argc, char* argv[])
 		p_player.setMapXY(map_data.start_x_, map_data.start_y_);
 		p_player.DoPlayer(map_data);
 		p_player.Show(g_screen);
+		if(p_player.Fall() == true) {
+			player_blood.Decrease();
+			player_blood.Render(g_screen);
 
+		}
 		if(p_player.getOutOfPlayer()+cnt_die>3) {
 				if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
 
@@ -239,6 +248,8 @@ int main(int argc, char* argv[])
 
 		gameMap.setMap(map_data);
 		gameMap.DrawMap(g_screen);
+
+		player_blood.Show(g_screen);
 
 		for(int i=0;i<threats_list.size();i++) {
 			threatsObj* p_threat = threats_list.at(i);
@@ -280,15 +291,19 @@ int main(int argc, char* argv[])
 					}
 
 					cnt_die++;
-					if(cnt_die<=3) {
+					if(cnt_die<=3 || p_player.Fall()) {
+
 						p_player.SetRect(0, 0);
 						p_player.set_comback_time(1);
+						player_blood.Decrease();
+						player_blood.Render(g_screen);
 						continue;
 					}
 
 					else {
 						if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
 							p_threat->Free();
+
 							close();
 							SDL_Quit();
 							return 0;
