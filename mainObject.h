@@ -84,6 +84,7 @@ private:
 	Input input_type_;
 	int frame_;
 	int	status_;
+	int last_status_;
 
 	bool onGround;
 

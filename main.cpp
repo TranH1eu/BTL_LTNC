@@ -8,8 +8,10 @@
 #include "Timer.h"
 #include "threatsObj.h"
 #include "explosionObj.h"
+#include "textDisplay.h"
 
 baseFunction g_background;
+TTF_Font* fontTime = NULL;
 
 
 bool InitData() {
@@ -36,6 +38,14 @@ bool InitData() {
 			SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
 			int imgFlags = IMG_INIT_PNG;
 			if(!(IMG_Init(imgFlags)&& imgFlags)) success = false;
+		}
+		if(TTF_Init() == -1) {
+			success = false;
+		}
+
+		fontTime = TTF_OpenFont("font//", 15);
+		if(fontTime != NULL) {
+			success = false;
 		}
 	}
 
@@ -175,6 +185,10 @@ int main(int argc, char* argv[])
 	exp_threat.set_clip();
 
 	int cnt_die = 0;
+
+	//Time text
+	textDisplay time_game;
+	time_game.setColor(textDisplay::WHITE_TEXT);
 
 
 
@@ -336,6 +350,26 @@ int main(int argc, char* argv[])
 					}
 				}
 			}
+		}
+
+		//Show game time
+		std::string str_time = "TIME: ";
+		Uint32 time_val = SDL_GetTicks()/1000;
+		Uint32 val_time= 300 - time_val;
+		if(val_time<=0) {
+			if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK) {
+
+				is_quit = true;
+				break;
+			}
+		}
+		else {
+
+			std::string str_val  = std::to_string(val_time);
+			str_time += str_val;
+			time_game.setText(str_time);
+			time_game.LoadFromRenderText(fontTime, g_screen);
+			time_game.RenderText(g_screen, SCREEN_WIDTH - 200, 15);
 		}
 
 		SDL_RenderPresent(g_screen);

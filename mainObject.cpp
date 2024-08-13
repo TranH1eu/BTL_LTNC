@@ -11,6 +11,7 @@ mainObject::mainObject() {
     width_frame_ = 0;
     height_frame_ = 0;
     status_ = -1;
+    last_status_ = -1;
     input_type_.left_ = 0;
     input_type_.right_ = 0;
     input_type_.down_ = 0;
@@ -155,6 +156,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_C
 
         case SDLK_RIGHT:
             status_ = WALK_RIGHT;
+            last_status_ = WALK_RIGHT;
             input_type_.right_ = 1;
             input_type_.left_ = 0;
             if(onGround == true) {
@@ -166,6 +168,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_C
             break;
         case SDLK_LEFT:
             status_ = WALK_LEFT;
+            last_status_ = WALK_LEFT;
             input_type_.left_ = 1;
             input_type_.right_ = 0;
             if(onGround == true) {
@@ -175,30 +178,34 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_C
 				LoadImg("img//jump_left.png", screen);
             }
             break;
-		case SDLK_UP :
-			if(onGround){
-				input_type_.up_ =1;
-				status_ = WALK_UP;
+		 case SDLK_UP:
+		 	input_type_.up_ = 1;
+		 	last_status_ = WALK_UP;
+            if(onGround) {
+                input_type_.up_ = 1;
+                if (status_ == WALK_LEFT) {
+                    status_ = WALK_LEFT;  // Giữ nguyên hướng trái
+                    LoadImg("img//jump_left.png", screen);
+                } else if (status_ == WALK_RIGHT) {
+                    status_ = WALK_RIGHT;  // Giữ nguyên hướng phải
+                    LoadImg("img//jump_right.png", screen);
+                }
+            }
 
-				if(status_ == WALK_RIGHT) {
-				LoadImg("img//jump_right.png", screen);
+            break;
 
-				}
-				else if(status_ == WALK_LEFT) {
-					LoadImg("img//jump_left.png", screen);
-				}
-				onGround = false;
+        case SDLK_DOWN:
+            input_type_.down_ = 1;
+            last_status_ = WALK_DOWN;
+            if (status_ == WALK_LEFT) {
+                status_ = WALK_LEFT;  // Giữ nguyên hướng trái
+                LoadImg("img//soldier_left.png", screen);
+            } else if (status_ == WALK_RIGHT) {
+                status_ = WALK_RIGHT;  // Giữ nguyên hướng phải
+                LoadImg("img//soldier_right.png", screen);
+            }
 
-			}
-
-			break;
-		case SDLK_DOWN:
-
-			input_type_.down_ = 1;
-			status_ = WALK_DOWN;
-
-
-			break;
+            break;
 
         }
     }
@@ -223,19 +230,19 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_C
 			p_bullet->LoadImg("img//gun.png", screen);
 			Mix_PlayChannel(-1, bullet_sound[0], 0);
 
-			if(status_ == WALK_LEFT) {
+			if(last_status_ == WALK_LEFT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_LEFT);
 				p_bullet->SetRect(this->rect_.x, rect_.y + height_frame_ * 0.3);
 			}
-			else if(status_ == WALK_RIGHT) {
+			else if(last_status_ == WALK_RIGHT) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_RIGHT);
 				p_bullet->SetRect(this->rect_.x + width_frame_ -15, rect_.y + height_frame_ * 0.3);
 			}
-			else if(status_ == WALK_UP) {
+			else if(last_status_ == WALK_UP) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_UP);
 				p_bullet->SetRect(this->rect_.x + width_frame_ - 20, rect_.y + height_frame_ * 0.25);
 			}
-			else if(status_ == WALK_DOWN) {
+			else if(last_status_ == WALK_DOWN) {
 				p_bullet->set_bullet_dir(bulletObj::DIR_DOWN);
 				p_bullet->SetRect(this->rect_.x + width_frame_ - 20, rect_.y + height_frame_ * 0.25);
 			}
@@ -248,6 +255,7 @@ void mainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_C
 			p_bullet_list_.push_back(p_bullet);
 		}
     }
+
 
 }
 
