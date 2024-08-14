@@ -221,6 +221,7 @@ int main(int argc, char* argv[])
 
 		g_background.Render(g_screen, NULL);
 
+		player_blood.Show(g_screen);
 
 		Map map_data = gameMap.getMap();
 
@@ -249,7 +250,7 @@ int main(int argc, char* argv[])
 		gameMap.setMap(map_data);
 		gameMap.DrawMap(g_screen);
 
-		player_blood.Show(g_screen);
+
 
 		for(int i=0;i<threats_list.size();i++) {
 			threatsObj* p_threat = threats_list.at(i);
@@ -328,6 +329,8 @@ int main(int argc, char* argv[])
 		int frame_exp_width = exp_threat.get_frame_width();
 		int frame_exp_height = exp_threat.get_frame_height();
 
+
+
 		std::vector<bulletObj*> bullet_arr = p_player.get_bullet_list();
 		for (int r =0;r<bullet_arr.size();r++) {
 			bulletObj* p_bullet = bullet_arr.at(r);
@@ -365,15 +368,25 @@ int main(int argc, char* argv[])
 							else if(!obj_threat->isDynamic()) {
 								p_player.RemoveBullet(r);
 								Mix_PlayChannel(-1, g_sound_exp[0], 0);
+								/*obj_threat->IncreaseHitCount();
+								if(obj_threat->GetHitCount() >= 3) {
+									obj_threat->Free();
+									threats_list.erase(threats_list.begin() + t);
+								}*/
+
 
 							}
 							//obj_threat->Free();
 							//threats_list.erase(threats_list.begin() + t);
+
 						}
+
 					}
 				}
 			}
 		}
+
+
 
 		//Show game time
 		std::string str_time = "TIME: ";
@@ -402,9 +415,12 @@ int main(int argc, char* argv[])
 		mark.LoadFromRenderText(fontTime, g_screen);
 		mark.RenderText(g_screen, SCREEN_WIDTH - 600, 15);
 
+
 		int money_cnt = p_player.getCountMoney();
 		std::string money_str = std::to_string(money_cnt);
-		money_game.setText(money_str);
+		std::string strCoin = "COIN: ";
+		strCoin += money_str;
+		money_game.setText(strCoin);
 		money_game.LoadFromRenderText(fontTime, g_screen);
 		money_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 250, 15);
 

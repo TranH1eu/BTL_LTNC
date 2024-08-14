@@ -18,6 +18,8 @@ threatsObj::threatsObj() {
 
 	input_type_.left_ = 1;
 	type_move_ = STATIC_THREAT;
+
+	hit_cnt_ = 0;
 }
 
 threatsObj::~threatsObj() {}
@@ -53,6 +55,9 @@ void threatsObj::set_clips() {
 		}
 	}
 }
+
+
+
 
 void threatsObj::Show(SDL_Renderer* des) {
 	if(comeback_time == 0) {
@@ -273,6 +278,9 @@ void threatsObj::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int&
         bulletObj* p_bullet = bullet_list_.at(i);
         if (p_bullet != NULL) {
             if (p_bullet->get_is_move()) {
+            		if (p_bullet->GetRect().y > y_limit) {
+                    p_bullet->set_is_move(false);
+                }
                 // Cải thiện điều kiện kiểm tra khoảng cách
                 int bullet_distance;
                 if (p_bullet->get_bullet_dir() == bulletObj::DIR_LEFT) {

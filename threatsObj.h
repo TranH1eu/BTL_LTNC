@@ -61,6 +61,11 @@ public :
 
 	bool isDynamic() const {return type_move_ == MOVE_IN_SPACE_THREAT; }
 
+	void IncreaseHitCount() { hit_cnt_++; }  // Tăng biến đếm
+	int GetHitCount() const { return hit_cnt_; } // Lấy giá trị biến đếm
+
+
+
 private :
 
 	int map_x_;
@@ -83,6 +88,8 @@ private :
 	int animation_a_;
 	int animation_b_;
 	Input input_type_;
+
+	int hit_cnt_;
 
 
 
