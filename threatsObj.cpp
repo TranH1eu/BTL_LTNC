@@ -7,8 +7,8 @@ threatsObj::threatsObj() {
 	height_frame_ =0;
 	x_val_=0.0;
 	y_val_=0.0;
-	x_pos_=0.0;
-	y_pos_=0.0;
+	x_pos_=1*TILE_SIZE;
+	y_pos_=1*TILE_SIZE;
 	on_ground = false;
 	comeback_time =0;
 	frame_ =0;

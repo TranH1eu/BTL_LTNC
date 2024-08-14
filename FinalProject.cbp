@@ -46,6 +46,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Blood.cpp" />
+		<Unit filename="Blood.h" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.h" />
 		<Unit filename="baseFunction.cpp" />
@@ -62,6 +64,8 @@
 		<Unit filename="mainMap.h" />
 		<Unit filename="mainObject.cpp" />
 		<Unit filename="mainObject.h" />
+		<Unit filename="textDisplay.cpp" />
+		<Unit filename="textDisplay.h" />
 		<Unit filename="threatsObj.cpp" />
 		<Unit filename="threatsObj.h" />
 		<Extensions>

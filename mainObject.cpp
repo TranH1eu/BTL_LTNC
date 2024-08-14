@@ -482,7 +482,7 @@ void mainObject::checkMap(Map& map_data) {
         x_pos_ = map_data.max_x_ - width_frame_ - 1;
     }
     if(y_pos_>map_data.max_y_){
-		comeback_time_ = 60;
+		comeback_time_ = 1;
 		cnt_fall++;
 		fall_=1;
 
