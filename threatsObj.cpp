@@ -11,7 +11,7 @@ threatsObj::threatsObj() {
 	y_pos_=1*TILE_SIZE;
 	on_ground = false;
 	comeback_time =0;
-	frame_ =0;
+	frame_ = 0;
 
 	animation_a_ =0;
 	animation_b_ =0;

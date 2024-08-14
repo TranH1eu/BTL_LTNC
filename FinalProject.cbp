@@ -52,6 +52,8 @@
 		<Unit filename="Timer.h" />
 		<Unit filename="baseFunction.cpp" />
 		<Unit filename="baseFunction.h" />
+		<Unit filename="bossThreat.cpp" />
+		<Unit filename="bossThreat.h" />
 		<Unit filename="bulletObj.cpp" />
 		<Unit filename="bulletObj.h" />
 		<Unit filename="commonFunction.cpp" />

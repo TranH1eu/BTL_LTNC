@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1723603853 source:e:\workspace\finalproject\main.cpp
+1723656674 source:e:\workspace\finalproject\main.cpp
 	"main.h"
 	"commonFunction.h"
 	"baseFunction.h"
@@ -10,6 +10,7 @@
 	"explosionObj.h"
 	"textDisplay.h"
 	"Blood.h"
+	"bossThreat.h"
 
 1720194199 d:\downloads\sdl2-2.30.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -484,7 +485,7 @@
 	"baseFunction.h"
 	"commonFunction.h"
 
-1723606094 source:e:\workspace\finalproject\threatsobj.cpp
+1723644735 source:e:\workspace\finalproject\threatsobj.cpp
 	"main.h"
 	"threatsObj.h"
 
@@ -849,4 +850,13 @@
 1723543785 source:e:\workspace\finalproject\blood.cpp
 	"main.h"
 	"Blood.h"
+
+1723650195 source:e:\workspace\finalproject\bossthreat.cpp
+	"main.h"
+	"bossThreat.h"
+
+1723655995 e:\workspace\finalproject\bossthreat.h
+	"commonFunction.h"
+	"bulletObj.h"
+	"baseFunction.h"
 
