@@ -55,7 +55,7 @@ void baseFunction::Render(SDL_Renderer* des, const SDL_Rect* clip) {
 void baseFunction::Free() {
 
 
-	if(p_object_ ==NULL) {
+	if(p_object_ !=NULL) {
 		SDL_DestroyTexture(p_object_);
 		p_object_ = NULL;
 		rect_.w = 0;

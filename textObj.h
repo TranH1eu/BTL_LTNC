@@ -1,14 +1,15 @@
-#ifndef TEXT_OBJECT_H_
-#define TEXT_OBJECT_H_
+
+#ifndef TEXT_OBJECT1_H_
+#define TEXT_OBJECT1_H_
 
 #include "commonFunction.h"
 #include "baseFunction.h"
 
-class textDisplay {
+class textObj {
 
 public:
-	textDisplay();
-	~textDisplay();
+	textObj();
+	~textObj();
 
 	enum textColor {
 		RED_TEXT = 0,

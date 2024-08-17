@@ -205,6 +205,8 @@ int main(int argc, char* argv[])
 
 	int cnt_die = 0;
 
+
+
 	//Time text
 	textDisplay time_game;
 	time_game.setColor(textDisplay::WHITE_TEXT);
@@ -215,10 +217,15 @@ int main(int argc, char* argv[])
 
 	textDisplay money_game;
 	money_game.setColor(textDisplay::WHITE_TEXT);
-
-
-
 	bool is_quit = false;
+
+	int ret_menu = SDLCommonFunc::showMenu(g_screen, fontTime);
+	if(ret_menu == 1)
+		is_quit = true;
+
+
+
+
 	while(!is_quit) {
 			fps_timer.start();
 

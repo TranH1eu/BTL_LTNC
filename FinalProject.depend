@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1723657221 source:e:\workspace\finalproject\main.cpp
+1723928115 source:e:\workspace\finalproject\main.cpp
 	"main.h"
 	"commonFunction.h"
 	"baseFunction.h"
@@ -412,16 +412,18 @@
 	"begin_code.h"
 	"close_code.h"
 
-1723448982 source:e:\workspace\finalproject\commonfunction.cpp
+1723933558 source:e:\workspace\finalproject\commonfunction.cpp
 	"main.h"
 	"commonFunction.h"
+	"baseFunction.h"
+	<iostream>
 
 1721188980 e:\workspace\finalproject\main.h
 	<stdio.h>
 	<tchar.h>
 	<cstdio>
 
-1723446781 e:\workspace\finalproject\commonfunction.h
+1723929676 e:\workspace\finalproject\commonfunction.h
 	<windows.h>
 	<string>
 	<vector>
@@ -429,6 +431,8 @@
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
+	"textDisplay.h"
+	"baseFunction.h"
 
 1705857752 d:\downloads\sdl2_mixer-2.8.0\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
 	"SDL_stdinc.h"
@@ -444,7 +448,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1721188980 source:e:\workspace\finalproject\basefunction.cpp
+1723928867 source:e:\workspace\finalproject\basefunction.cpp
 	"main.h"
 	"baseFunction.h"
 
@@ -836,10 +840,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1723537937 e:\workspace\finalproject\textdisplay.h
+1723929872 e:\workspace\finalproject\textdisplay.h
 	"commonFunction.h"
+	"baseFunction.h"
 
-1723538313 source:e:\workspace\finalproject\textdisplay.cpp
+1723929939 source:e:\workspace\finalproject\textdisplay.cpp
 	"main.h"
 	"textDisplay.h"
 
@@ -858,5 +863,23 @@
 1723655995 e:\workspace\finalproject\bossthreat.h
 	"commonFunction.h"
 	"bulletObj.h"
+	"baseFunction.h"
+
+1723921538 source:e:\workspace\finalproject\menuobj.cpp
+	"menuObj.h"
+	"main.h"
+	<iostream>
+
+1723919191 e:\workspace\finalproject\menuobj.h
+	"commonFunction.h"
+	"baseFunction.h"
+	"textDisplay.h"
+
+1723927545 source:e:\workspace\finalproject\textobj.cpp
+	"main.h"
+	"textObj.h"
+
+1723928045 e:\workspace\finalproject\textobj.h
+	"commonFunction.h"
 	"baseFunction.h"
 

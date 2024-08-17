@@ -9,15 +9,21 @@
 #include<SDL_image.h>
 #include<SDL_mixer.h>
 #include<SDL_ttf.h>
+#include "textDisplay.h"
+#include "baseFunction.h"
 
 
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
+static SDL_Renderer* g_menu = NULL;
 
 static Mix_Chunk* g_sound_bullet[2];
 static Mix_Chunk* g_sound_exp[2];
+
+
+static SDL_Renderer* g_img_menu = NULL;
 
 //man hinh
 const int FRAME_PER_SECOND = 25;//fps
@@ -62,9 +68,19 @@ typedef struct Map {
 };
 
 
-namespace SDLCommonFunc {
+namespace SDLCommonFunc{
+	static SDL_Texture* p_object_;
+	static SDL_Rect rect_;
 
+	bool LoadImg(std::string path, SDL_Renderer* screen);
 	bool collisionCheck(const SDL_Rect& object1, const SDL_Rect& object2);
+	void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);
+	void Free();
+
+	int showMenu(SDL_Renderer* des, TTF_Font* font);
+	bool checkFocusWithRect(const int& x, const int& y,const SDL_Rect& rect);
+
+
 }
 
 #endif // COMMMON_FUNCTION_H_

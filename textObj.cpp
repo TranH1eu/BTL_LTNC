@@ -1,28 +1,21 @@
 
 #include "main.h"
-#include "textDisplay.h"
+#include "textObj.h"
 
-textDisplay::textDisplay() {
+textObj::textObj() {
 
 	text_color_.r  = 255;
 	text_color_.g = 255;
 	text_color_.b = 255;
 	texture_ = NULL;
-
-
-	rect_.x = 0;
-	rect_.y = 0;
-	rect_.w = 0;
-	rect_.h = 0;
-
 }
 
-textDisplay::~textDisplay() {
+textObj::~textObj() {
 
 
 }
 
-bool textDisplay::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen ) {
+bool textObj::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen ) {
 
 
 	SDL_Surface* text_surface = TTF_RenderText_Solid(font, str_val_.c_str(), text_color_);
@@ -40,7 +33,7 @@ bool textDisplay::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen ) {
 
 }
 
-void textDisplay::Free() {
+void textObj::Free() {
 
 
 	if(texture_!=NULL) {
@@ -49,14 +42,14 @@ void textDisplay::Free() {
 	}
 }
 
-void textDisplay::setColor(Uint8 red, Uint8 green, Uint8 blue) {
+void textObj::setColor(Uint8 red, Uint8 green, Uint8 blue) {
 
 	text_color_.r = red;
 	text_color_.g = green;
 	text_color_.b = blue;
 }
 
-void textDisplay::setColor(int type) {
+void textObj::setColor(int type) {
 
 	if(type == RED_TEXT) {
 		SDL_Color color = {255, 0, 0};
@@ -72,7 +65,7 @@ void textDisplay::setColor(int type) {
 	}
 }
 
-void textDisplay::RenderText(SDL_Renderer* screen,
+void textObj::RenderText(SDL_Renderer* screen,
 					int xp, int  ypos,
 					SDL_Rect* clip,
 					double angle,
