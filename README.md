@@ -1,15 +1,9 @@
 # SIMPLE CONTRA
-###### Thử nghiệm game:
-###### Phá đảo game:
+###### Giới thiệu về cấu trúc, và chạy game:https://drive.google.com/file/d/13B2uZRnlevEKba-JnUh61qcRJ3B7NuXR/view?usp=sharing
 
 ## Giới thiệu game:
 Simple contra là một game thuộc thể loại game run and shot, nội dung game là nhập vai vào một nhân vật soldier vượt qua những chướng ngại vật và kết thúc game bằng việc đối đầu với một quái vật boss.
 
-## Cách tải game:
-
-### Không bao gồm code
-
-### Bao gồm code và có thể biên dịch
 
 ## 1. Bắt đầu game:
 
