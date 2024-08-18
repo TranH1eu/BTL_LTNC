@@ -71,23 +71,25 @@ Simple contra là một game thuộc thể loại game run and shot, nội dung 
 
 #### đầu tiên là file main: Là nơi để thực thi các lớp các hàm và hiển thị ra cửa sổ window
 
-#### file baseFunction: Là lớp mà có các hàm mà nhiều file cần sử dụng (hàm chung) ví dụ như những hàm để tải ảnh, lấy vị trí.
+#### file baseFunction: Là lớp mà có các hàm mà nhiều file cần sử dụng (hàm chung) ví dụ như những hàm để tải ảnh, lấy vị trí
 
-#### file commonFunction: Cũng là lớp chứa tất cả các biến các hàm chung mà trong project dùng như các biến cố định về màu sắc, các biến về file và đây cũng là lớp tạo menu cho game.
+#### file commonFunction: Cũng là lớp chứa tất cả các biến các hàm chung mà trong project dùng như các biến cố định về màu sắc, các biến về file và đây cũng là lớp tạo menu cho game
 
 #### file mainMap là file để tạo ra một map có độ dài cho trước
 
 #### file mainObj là file để gọi ra nhân vật chính trong game bao gồm các hàm di chuyển, kiểm tra tọa độ, ...
 
-#### Tương tự file mainObj thì file threatObj để lưu các hàm của mối đe dọa và bossObj cũng vậy.
+#### file bulletObj để tạo đạn cho các đối tượng trong game bao gồm cả nhân vật main và mối đe dọa
+
+#### Tương tự file mainObj thì file threatObj để lưu các hàm của mối đe dọa và bossObj cũng vậy
 
 #### file Blood có chức năng hiển thị chỉ số sinh mệnh và cập nhật nó khi có va chạm
 
-#### file textDisplay có chức năng để hiển thị các dòng text như coin hay Kill lên màn hình.
+#### file textDisplay có chức năng để hiển thị các dòng text như coin hay Kill lên màn hình
 
 #### file timer có chức năng điều chỉnh fps cho game giúp game có được độ mượt nhất định
 
-#### file explosionObj có chức năng hiển thị các vụ nổ khi xảy ra va chạm ví dụ như người với các đối tượng đe dọa hay các viên đạn.
+#### file explosionObj có chức năng hiển thị các vụ nổ khi xảy ra va chạm ví dụ như người với các đối tượng đe dọa hay các viên đạn
 
 #### Ngoài ra còn các folder là:
 ##### img: để lưu các ảnh cho game như các object
