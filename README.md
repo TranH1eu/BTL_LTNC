@@ -59,3 +59,7 @@ Simple contra là một game thuộc thể loại game run and shot, nội dung 
 
 
 ## 4. Chiến thắng và thất bại
+
+### Đối với thất bại: Mỗi người chơi chỉ có 3 sinh mệnh và mỗi lần bị va chạm với mối đe dọa hay đạn của chúng và khi rơi xuống hồ đều sẽ bị trừ 1 điểm sinh mệnh và cứ như vậy khi dùng hết 3 lượt sinh mệnh sẽ bị thất bại
+
+### Đối chiến thắng: khi bạn có thể vượt qua được hết chướng ngại vật đồng thời giết được đối tượng boss thì khi này sẽ phá đảo hay giành chiến thắng game.
