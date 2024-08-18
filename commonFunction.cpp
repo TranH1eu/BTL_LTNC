@@ -68,7 +68,7 @@ bool SDLCommonFunc::checkFocusWithRect(const int& x, const int& y, const SDL_Rec
 
 
 int SDLCommonFunc::showMenu(SDL_Renderer* des, TTF_Font* font) {
-    bool ret = LoadImg("img//blue.png", des);
+    bool ret = LoadImg("img//background.png", des);
     if (!ret) {
         std::cerr << "Failed to load background image" << std::endl;
         return 1;
@@ -78,10 +78,10 @@ int SDLCommonFunc::showMenu(SDL_Renderer* des, TTF_Font* font) {
 
 
     // Định nghĩa khu vực cho nút "Play Game"
-    SDL_Rect playGameArea = {200, 250, 150, 50}; // x, y, width, height
+    SDL_Rect playGameArea = {550, 400, 150, 50}; // x, y, width, height
 
     // Định nghĩa khu vực cố định để thoát game
-    SDL_Rect exitArea = {200, 350, 100, 50}; // x, y, width, height
+    SDL_Rect exitArea = {570, 500, 100, 50}; // x, y, width, height
 
     textDisplay txt_menu[kMenuItem];
     txt_menu[0].setText("Play Game");
