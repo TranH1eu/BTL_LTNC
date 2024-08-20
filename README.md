@@ -59,7 +59,7 @@ Simple contra là một game thuộc thể loại game run and shot, nội dung 
 #### Đối chiến thắng: khi bạn có thể vượt qua được hết chướng ngại vật đồng thời giết được đối tượng boss thì khi này sẽ phá đảo hay giành chiến thắng game.
 
 ## Về source code game:
-#### Tham khảo từ web: https://phattrienphanmem123az.com/
+
 
 ### Cấu trúc chính của game là mỗi lớp đều có 2 file có đuôi .h để định nghĩa hàm và .cpp để hoàn thiện các chức năng trong hàm đó
 
@@ -91,4 +91,8 @@ Simple contra là một game thuộc thể loại game run and shot, nội dung 
 ##### sound: để lưu các âm thanh được thiết lập trong game
 ##### font: phông chữ được thiết lập trong game.
 
+### Nguồn tham khảo:
 
+#### Tham khảo từ web: https://phattrienphanmem123az.com/
+#### Hình ảnh: https://www.deviantart.com/kizunaken/art/Contra-Hard-Corps-Remade-sprites-879908933
+#### Âm thanh: https://pixabay.com/vi/sound-effects/search/gun/
